@@ -11,10 +11,12 @@ const PORT = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 
+// API ROUTES
+app.get("/api/notes", function(req, res) {
+    res.sendFile(path.join(__dirname, "./db/db.json"));
+});
 
-
-
-// ROUTES
+// HTML ROUTES
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "./public/index.html"));
 });
@@ -26,7 +28,6 @@ app.get("/notes", function(req, res) {
 app.get("*", function(req, res) {
     res.sendFile(path.join(__dirname, "./public/index.html"));
 });
-
 // Start the server
 
 app.listen(PORT, function() {
