@@ -1,10 +1,11 @@
 // Dependencies
 const express = require("express");
 const path = require("path");
+const fs = require("fs");
 
 //Set up Express app
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 // Set up the Express ap to handle data parsing
 app.use(express.urlencoded({ extended: true}));
