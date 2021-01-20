@@ -41,7 +41,34 @@ app.post("/api/notes", function(req, res) {
         res.json(currentNotesDB);
         // res.json(notesDB);
     })
+});
+
+app.delete("/api/notes/:id", function(req, res) {
+    const selectedNote = req.params.id;
+    
+    fs.readFile(__dirname + "/db/db.json", function(err, data) {
+        if (err) throw err;
+
+        const currentNotesDB = JSON.parse(data);
+        const notesRemaining = currentNotesDB.filter(function(note) {
+            return note.id !== selectedNote;
+        });
+
+        fs.writeFile(__dirname + '/db/db.json', JSON.stringify(notesRemaining), (err) => {
+            if (err) throw err;
+            console.log("This note has been deleted.");
+        });
+
+        res.json(notesRemaining);
+    });
+
+
+
+
+
+
 })
+
 
 
 // HTML ROUTES
