@@ -17,7 +17,29 @@ app.get("/api/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "./db/db.json"));
 });
 
-app.post("/api/notes")
+app.post("/api/notes", function(req, res) {
+    fs.readFile(__dirname + "/db/db.json", function(err, data) {
+        if (err) throw err;
+        const currentNotesDB = JSON.parse(data);
+        console.log(currentNotesDB);
+
+        const addedNote = {
+            title: req.body.title,
+            text: req.body.text
+        };
+        console.log(addedNote);
+
+        currentNotesDB.push(addedNote);
+
+        fs.writeFile(__dirname + '/db/db.json', JSON.stringify(currentNotesDB), (err) => {
+            if (err) throw err;
+            console.log("This file has been saved!");
+        });
+
+        res.json(currentNotesDB);
+        // res.json(notesDB);
+    })
+})
 
 
 // HTML ROUTES
