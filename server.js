@@ -26,7 +26,8 @@ app.post("/api/notes", function(req, res) {
 
         const addedNote = {
             title: req.body.title,
-            text: req.body.text
+            text: req.body.text,
+            id: uuidv4(),
         };
         console.log(addedNote);
 
